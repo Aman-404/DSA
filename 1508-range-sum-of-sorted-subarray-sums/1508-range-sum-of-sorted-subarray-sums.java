@@ -14,7 +14,7 @@ class Solution {
                 res[k++] = sum;
             }
         }
-        Arrays.sort(res);
+       
         int ans = 0, mod = 1000000007;
         Arrays.sort(res);
         for(int i = left-1; i < right; i++) {
