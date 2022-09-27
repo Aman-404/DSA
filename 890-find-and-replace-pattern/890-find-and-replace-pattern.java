@@ -1,30 +1,23 @@
 class Solution {
-    
-    public List<String> findAndReplacePattern(String[] w, String p) {
+    public boolean isFound(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+        HashMap<Character,Character> mp1 = new HashMap<>();
+         HashMap<Character,Boolean> mp2 = new HashMap<>();
         
-        List<String> ans = new ArrayList<>();
-        
-        
-        
-        for(int j=0;j<w.length;j++){
-            HashMap<Character,Character> mp1 = new HashMap<>();
-            HashMap<Character,Boolean> mp2 = new HashMap<>();
-            String s = w[j];
-           
-            boolean value = true;
-            for(int i=0;i<s.length();i++){
+        for(int i=0;i<s.length();i++){
             char ch1= s.charAt(i);
-            char ch2 = p.charAt(i);
+            char ch2 = t.charAt(i);
             
             if(mp1.containsKey(ch1)==true){
                 if(mp1.get(ch1)!=ch2){
-                  value = false;
-                    break;  
+                    return false;
+                    
                 }
             }else{
                 if(mp2.containsKey(ch2)==true){
-                  value = false;
-                    break;
+                    return false;
                 }
                 else{
                 mp1.put(ch1,ch2);
@@ -32,9 +25,12 @@ class Solution {
                }
             }
         }
-            if(value == true){
-                ans.add(s);
-            }
+        return true;
+    }
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
+          List<String> ans = new ArrayList<>();
+        for(String s : words){
+            if(isFound(s,pattern)) ans.add(s);
         }
         return ans;
     }
