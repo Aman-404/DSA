@@ -1,16 +1,22 @@
 class Solution {
-    public int sumOddLengthSubarrays(int[] arr) {
-        int n=arr.length;
-        int total=0;
-        for(int i=0;i<n;i+=2){
-            for(int j=0;j<n;j++){
-                if(j+i<n){
-                    for(int k=0;k<=i;k++){
-                        total+=arr[(j+k)];
-                    }
+     public int sumOddLengthSubarrays(int[] arr) {
+        
+       
+        int totalSum = 0;
+        
+        for (int i = 0; i < arr.length; i += 1) {
+            
+            for (int j = i + 1; j <= arr.length; j += 2) {
+           
+                int[] subArray = Arrays.copyOfRange(arr, i, j);
+                
+                for (int k = 0; k < subArray.length; k += 1) {
+                   
+                    totalSum += subArray[k];
                 }
             }
         }
-        return total;
+        
+        return totalSum;
     }
 }
