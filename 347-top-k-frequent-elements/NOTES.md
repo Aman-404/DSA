@@ -1,3 +1,4 @@
+```
 class Pair implements Comparable<Pair>{
 int key;
 int value;
@@ -9,3 +10,4 @@ public int compareTo(Pair other){
 return other.value -this.value;
 }
 }
+```
