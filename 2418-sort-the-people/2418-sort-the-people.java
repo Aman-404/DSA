@@ -8,13 +8,13 @@ class Solution {
             this.height = height;
         }
         public int compareTo(Pair o){
-            return o.height - this.height;
+            return this.height - o.height;
         }
     }
     public String[] sortPeople(String[] names, int[] heights) {
         String[] ans = new String[names.length];
         
-        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Collections.reverseOrder());
         for(int i = 0; i<names.length; i++){
             pq.add(new Pair(names[i], heights[i]));
             
