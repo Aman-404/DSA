@@ -1,23 +1,35 @@
-
 class Solution {
+    public class Pair{
+        int key;
+        int num;
+        Pair(int key,int num){
+            this.key = key;
+            this.num = num;
+        }
+    }
     public int[] frequencySort(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+        HashMap<Integer,Integer> freqMap = new HashMap<>();
+        
+        for(int i = 0;i<nums.length;i++){
+            freqMap.put(nums[i],freqMap.getOrDefault(nums[i],0)+1);
         }
         
-        List<Integer> list = new ArrayList<>(map.keySet());
-        Collections.sort(list, (a, b) -> {
-            return (map.get(a) == map.get(b))? b - a : map.get(a) - map.get(b);
-        });
-            
-        int[] res = new int[nums.length];
-        int i = 0;
-        for (int num : list) {
-            for (int j = 0; j < map.get(num); j++) {
-                res[i++] = num;
+        PriorityQueue<Pair> minHeap = new PriorityQueue<>(new Comparator<Pair>(){
+            public int compare(Pair p1, Pair p2){
+                if(p1.key == p2.key){
+                    return p2.num - p1.num;
+                }else{
+                    return p1.key - p2.key;
+                }
             }
+        });
+        
+        for(int i = 0;i<nums.length;i++){
+            minHeap.add(new Pair(freqMap.get(nums[i]),nums[i]));
         }
-        return res;
+        for(int i = 0;i<nums.length;i++){
+            nums[i] = minHeap.poll().num;
+        }
+        return nums;
     }
 }
