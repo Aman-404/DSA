@@ -1,34 +1,39 @@
 class Solution {
-     public int shipWithinDays(int[] weights, int D) {
-        int left = 0;
-        int right = 0;
+    public int daysCapacity(int arr[],int cap){
+        int reqDay = 1;
+        int remaingCap = cap;
         
-        for (int weight: weights) {
-            left = Math.max(left, weight);
-            right += weight;
-        }
-        
-        while (left < right) {
-            int mid = (left + right) / 2;
-            int curr = 0;
-            int days = 1;
-            
-            for (int weight: weights) {
-                if (curr + weight > mid) {
-                    curr = 0;
-                    days++;
-                }
-                
-                curr += weight;
-            }
-            
-            if (days > D) {
-                left = mid + 1;
-            } else {
-                right = mid;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<=remaingCap){
+                remaingCap-=arr[i];
+            }else{
+                reqDay++;
+                remaingCap =cap;
+                remaingCap -= arr[i];
             }
         }
-        
-        return left;
+        return reqDay;
+    }
+    
+    
+    public int shipWithinDays(int[] we, int D) {
+        int sum=0,maxEle = -1;
+        for(int i : we){
+            sum+=i;
+            maxEle = Math.max(maxEle,i);
+        }
+        int s=maxEle,e=sum,ans=sum;
+        while(s<=e){
+            int m=s+(e-s)/2;
+            int d = daysCapacity(we,m);
+            if(d>D){
+                s = m+1;
+            }else{
+                ans = Math.min(ans,m);
+                e = m-1;
+            }
+            
+        }
+        return ans;
     }
 }
