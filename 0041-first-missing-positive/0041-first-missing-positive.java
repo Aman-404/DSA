@@ -1,29 +1,19 @@
 class Solution {
-    public int firstMissingPositive(int[] arr) {
-        //Mark element which outof rang and manage presence of 1
-        
-        boolean one  = false;
-        int n = arr.length;
-        for(int i=0;i<n;i++){
-            if(arr[i]==1){
-                one = true;
-            }
-            if(arr[i]<1 || n<arr[i]){
-                arr[i] = 1;
-            }
-           
+    public int firstMissingPositive(int[] A) {
+        int i = 0;
+        while(i < A.length){
+            if(A[i] == i+1 || A[i] <= 0 || A[i] > A.length) i++;
+            else if(A[A[i]-1] != A[i]) swap(A, i, A[i]-1);
+            else i++;
         }
-         if(one==false) return 1;
-        //Map element with index
-        
-        for(int i=0;i<n;i++){
-            int idx = Math.abs(arr[i]);
-            arr[idx-1] = -Math.abs(arr[idx-1]);
-        }
-        //find missing number
-        for(int i=0;i<n;i++){
-           if(arr[i]>0) return i+1;
-        }
-        return n+1;
+        i = 0;
+        while(i < A.length && A[i] == i+1) i++;
+        return i+1;
+    }
+    
+    private void swap(int[] A, int i, int j){
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
     }
 }
