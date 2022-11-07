@@ -21,5 +21,3 @@ arr[h] = st.pop();
 h--;
 }
 return arr;
-}
-```
