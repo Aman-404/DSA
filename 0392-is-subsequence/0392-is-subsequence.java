@@ -1,12 +1,21 @@
 class Solution {
-    public boolean isSubsequence(String str, String tar) {
-         int a=0,b=0;
-        while(b<tar.length() && a<str.length()){
-            if(str.charAt(a) == tar.charAt(b)){
-                a++;
-            }
-            b++;
+    
+	    public boolean isSubsequence(String s, String t) {
+        // Base case: if the s string is empty...
+        if(s.length() == 0)
+            return true;
+        // Initialize pointers for both strings
+        int i = 0;
+        int j = 0;
+        // We can iterate until either of them becomes zero...
+        while(i < s.length() && j < t.length()){
+            // Compare characters, increment i pointer...
+            if(s.charAt(i) == t.charAt(j)){
+                i++;
+            }j++;
+            // If the pointer is equal to the size of s, the match is found...
+            if(i == s.length()) return true;
         }
-        return (a==str.length());
+        return false;       // Otherwise return false...
     }
 }
